@@ -14,6 +14,7 @@ public class Main {
         List<CitiBike> bikes = citiBikeService.getBikes(args[0]);
 
         System.out.printf("List size is %d%n", bikes.size());
+	System.out.printf("Bootstrap: '%s'. File: '%s'%n", args[1], args[0]);
 
         try {
             Thread.sleep(1000L * 30);
