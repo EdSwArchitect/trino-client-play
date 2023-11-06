@@ -5,4 +5,6 @@ ls -l /usr/bin/java
 
 /usr/bin/java -version
 
+ls -l /
+
 /usr/bin/java -cp /trino-java.jar com.teamraft.Main citibike.csv ed-kafka.ed-testing.svc.cluster.local:9092

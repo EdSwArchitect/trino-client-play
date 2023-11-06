@@ -1,12 +1,15 @@
-
-apiVersion: v1
-kind: Pod
+apiVersion: batch/v1
+kind: Job
 metadata:
   name: trino-java
   namespace: ed-testing
   labels:
     app: ed-testing
 spec:
-  containers:
-    - name: trino-java
-      image: edswarchitect/edbrown-trino-java:1.0.0-SNAPSHOT
+  template:
+    spec:
+      containers:
+      - name: trino-java
+        image: edswarchitect/edbrown-trino-java:1.0.0-SNAPSHOT
+        imagePullPolicy: Always
+      restartPolicy: Never

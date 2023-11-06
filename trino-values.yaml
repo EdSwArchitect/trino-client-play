@@ -1,0 +1,16 @@
+additionalCatalogs:
+  kafka: |-
+    connector.name=kafka
+    kafka.table-names=citibike
+    kafka.default-schema=citi
+    kafka.hide-internal-columns=false
+    kafka.nodes=my-cluster-kafka-bootstrap:9092
+    kafka.table-description-dir=etc/schemas
+    kafka.auto.offset.reset=latest
+additionalNodeProperties:
+  - org.apache.kafka=DEBUG
+
+server:
+  log:
+    trino:
+      level: DEBUG

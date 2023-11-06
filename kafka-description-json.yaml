@@ -1,0 +1,82 @@
+kafka:
+  tableDescriptions:
+    citibike.json: |-
+      {
+        "tableName": "citibike",
+        "topicName": "citibike",
+        "schemaName": "citi",
+        "message": {
+          "dataFormat" : "json",
+          "fields": [
+            {
+              "name": "ride_id",
+              "mapping": "rideId",
+              "type": "VARCHAR"
+            },
+            {
+              "name": "rideable_type",
+              "mapping": "rideableType",
+              "type": "VARCHAR"
+            },
+            {
+              "name": "started_at",
+              "type": "TIMESTAMP",
+              "dataFormat": "custom-date-time",
+              "formatHint": "yyyy-MM-dd HH:mm:ss",
+              "mapping": "startedAt"
+            },
+            {
+              "name": "ended_at",
+              "type": "TIMESTAMP",
+              "dataFormat": "custom-date-time",
+              "formatHint": "yyyy-MM-dd HH:mm:ss",
+              "mapping": "endedAt"
+            },
+            {
+              "name": "start_station_name",
+              "mapping": "startStationName",
+              "type": "VARCHAR"
+            },
+            {
+              "name": "start_station_id",
+              "mapping": "startStationId",
+              "type": "VARCHAR"
+            },
+            {
+              "name": "end_station_name",
+              "mapping": "endStationName",
+              "type": "VARCHAR"
+            },
+            {
+              "name": "end_station_id",
+              "mapping": "endStationId",
+              "type": "VARCHAR"
+            },
+            {
+              "name": "start_lat",
+              "mapping": "startLat",
+              "type": "DOUBLE"
+            },
+            {
+              "name": "start_lng",
+              "mapping": "startLon",
+              "type": "DOUBLE"
+            },
+            {
+              "name": "end_lat",
+              "mapping": "endLat",
+              "type": "DOUBLE"
+            },
+            {
+              "name": "end_lng",
+              "mapping": "endLon",
+              "type": "DOUBLE"
+            },
+            {
+              "name": "member_casual",
+              "mapping": "memberCasual",
+              "type": "VARCHAR"
+            }
+          ]
+        }
+      }
