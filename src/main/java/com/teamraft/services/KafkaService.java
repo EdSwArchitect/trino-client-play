@@ -6,10 +6,13 @@ import com.teamraft.csv.CitiBike;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class KafkaService {
     private static ObjectMapper objectMapper = new ObjectMapper();
@@ -23,7 +26,7 @@ public class KafkaService {
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        props.put(ProducerConfig.ACKS_CONFIG, "all");
+        props.put(ProducerConfig.ACKS_CONFIG, 1);
         props.put(ProducerConfig.BATCH_SIZE_CONFIG, 1024);
         producer = new KafkaProducer<>(props);
     }
@@ -34,9 +37,14 @@ public class KafkaService {
 
                 ProducerRecord<String, String>record =
                         new ProducerRecord<>(topicName, bike.getRideId(), json);
-                producer.send(record);
+                Future<RecordMetadata> future =  producer.send(record);
+
+                System.out.printf("Future has topic: %s%n", future.get().topic());
+
             } catch (JsonProcessingException e) {
 
+            } catch (InterruptedException | ExecutionException e) {
+                System.err.println("Some exception!!!!!");
             }
         });
 
