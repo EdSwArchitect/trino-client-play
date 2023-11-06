@@ -16,6 +16,9 @@ public class CitiBikeService {
     public List<CitiBike> getBikes(String fileName) {
 
         try (Reader inputReader = new InputStreamReader(Objects.requireNonNull( CitiBikeService.class.getClassLoader().getResourceAsStream(fileName)))) {
+
+	    System.out.println("******* GOT RESOURCE FROM JAR");
+
             BeanListProcessor<CitiBike> rowProcessor = new BeanListProcessor<>(CitiBike.class);
             CsvParserSettings settings = new CsvParserSettings();
             settings.setHeaderExtractionEnabled(true);
@@ -26,6 +29,7 @@ public class CitiBikeService {
             return rowProcessor.getBeans();
         } catch (IOException e) {
             e.printStackTrace();
+	    System.out.println("Returning an empty array");
             return new ArrayList<>();
             // handle exception
         }

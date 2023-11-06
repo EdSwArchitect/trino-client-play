@@ -22,12 +22,16 @@ public class KafkaService {
     public KafkaService(String bootstrapServers, String topicName) {
         this.topicName = topicName;
         Properties props = new Properties();
+
+	System.err.printf("Bootstrap servers: '%s'\n", bootstrapServers);
+
         props.put(ProducerConfig.CLIENT_ID_CONFIG, "EdwinTesting");
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        props.put(ProducerConfig.ACKS_CONFIG, 1);
-        props.put(ProducerConfig.BATCH_SIZE_CONFIG, 1024);
+        //props.put(ProducerConfig.ACKS_CONFIG, "all");
+        props.put(ProducerConfig.ACKS_CONFIG, "1");
+        //props.put(ProducerConfig.BATCH_SIZE_CONFIG, 1024);
         producer = new KafkaProducer<>(props);
     }
     public void sendIt(List<CitiBike> bikes) throws JsonProcessingException {
@@ -35,17 +39,18 @@ public class KafkaService {
             try {
                 String json = objectMapper.writeValueAsString(bike);
 
+//		System.err.println(json);
+
                 ProducerRecord<String, String>record =
                         new ProducerRecord<>(topicName, bike.getRideId(), json);
-                Future<RecordMetadata> future =  producer.send(record);
-
-                System.out.printf("Future has topic: %s%n", future.get().topic());
-
+                //producer.send(record);
+                Future<RecordMetadata>future = producer.send(record);
+//		System.out.printf("Future topic? %s%n", future.get().topic());
+		
             } catch (JsonProcessingException e) {
-
-            } catch (InterruptedException | ExecutionException e) {
-                System.err.println("Some exception!!!!!");
-            }
+		    System.out.printf("The error raised is: %s\n", e.getMessage());
+		e.printStackTrace();
+            } 
         });
 
         producer.flush();
