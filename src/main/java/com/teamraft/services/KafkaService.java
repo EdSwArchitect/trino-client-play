@@ -11,7 +11,6 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.List;
 import java.util.Properties;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class KafkaService {
@@ -34,7 +33,7 @@ public class KafkaService {
         //props.put(ProducerConfig.BATCH_SIZE_CONFIG, 1024);
         producer = new KafkaProducer<>(props);
     }
-    public void sendIt(List<CitiBike> bikes) throws JsonProcessingException {
+    public void sendIt(List<CitiBike> bikes) {
         bikes.forEach(bike -> {
             try {
                 String json = objectMapper.writeValueAsString(bike);
