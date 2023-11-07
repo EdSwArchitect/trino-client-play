@@ -47,7 +47,7 @@ public class EntityService {
 
         System.err.printf("Bootstrap servers: '%s'\n", bootstrapServers);
 
-        props.put(ProducerConfig.CLIENT_ID_CONFIG, "EdwinTesting");
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, "EntityTesting");
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
@@ -57,13 +57,14 @@ public class EntityService {
 
     public void sendIt(List<String> entities) {
         System.out.printf("The list of records is %d in size%n", entities.size());
+
         entities.forEach(entity -> {
             ProducerRecord<String, String> record =
                     new ProducerRecord<>(topicName, UUID.randomUUID().toString(), entity);
             Future<RecordMetadata> future = producer.send(record);
 
             try {
-                future.get();
+                future.get().hasOffset();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -71,6 +72,7 @@ public class EntityService {
             }
 
         });
+
         producer.flush();
     }
 

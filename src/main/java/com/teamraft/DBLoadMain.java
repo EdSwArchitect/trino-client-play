@@ -17,7 +17,7 @@ public class DBLoadMain {
 
         List<String> entities = entityService.getEntities("5000-entities.xml");
 
-        System.out.printf("About to send %d XML documents", entities.size());
+        System.out.printf("About to send %d XML documents%n", entities.size());
 
         entityService.sendIt(entities);
 
