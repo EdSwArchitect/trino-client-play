@@ -21,7 +21,8 @@ public class DBMain {
 
         } catch (SQLException | ClassNotFoundException e ) {
 
-            System.err.format("Exception caught from search: %s\n", e.getMessage());
+            System.err.format("Exception caught from search: '%s'\n", e.getMessage());
+            e.printStackTrace();
         }
 
     }
