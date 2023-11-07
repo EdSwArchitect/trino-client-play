@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class CitiBikeService {
-    static final String DB_URL = "jdbc:trino://localhost:9080/kafka/citi?user=admin";
+    static final String DB_URL = "jdbc:trino://my-trino:8080/kafka/citi?user=admin";
     public List<CitiBike> getBikes(String fileName) {
 
         try (Reader inputReader = new InputStreamReader(Objects.requireNonNull( CitiBikeService.class.getClassLoader().getResourceAsStream(fileName)))) {
@@ -44,6 +44,8 @@ public class CitiBikeService {
 
     public List<CitiBikeModel>search() throws SQLException, ClassNotFoundException {
         List<CitiBikeModel>bikes = new ArrayList<>();
+
+        Class.forName("io.trino.jdbc.TrinoDriver");
 
         Connection conn = DriverManager.getConnection(DB_URL);
         Statement stmt = conn.createStatement();

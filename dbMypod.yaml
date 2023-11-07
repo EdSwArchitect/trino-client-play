@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: trino-java
+  name: db-trino-java
   namespace: ed-testing
   labels:
     app: ed-testing
@@ -9,7 +9,7 @@ spec:
   template:
     spec:
       containers:
-      - name: trino-java
+      - name: db-trino-java
         image: edswarchitect/edbrown-trino-java:1.0.0-SNAPSHOT
         command: ["./jdbc-entrypoint.sh"]
         imagePullPolicy: Always
