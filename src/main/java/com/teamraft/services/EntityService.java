@@ -199,7 +199,7 @@ public class EntityService {
                 System.err.println(e.getMessage());
             }
         });
-        StringBuilder sql = new StringBuilder("INSERT INTO entity (id,message, descriptive_label, mode1, mode2, mode3, mode5, tailNumber, callSign, updated_at, identity_timestamp, track_number) VALUES");
+        StringBuilder sql = new StringBuilder("INSERT INTO entity (id,message, descriptive_label, mode1, mode2, mode3, mode5, tail_number, callSign, updated_at, identity_timestamp, track_number) VALUES");
         sql.append("(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         PreparedStatement stmt = conn.prepareStatement(sql.toString());
 
