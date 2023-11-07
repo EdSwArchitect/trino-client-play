@@ -29,6 +29,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class EntityService {
@@ -37,7 +38,8 @@ public class EntityService {
     private KafkaProducer<String, String> producer;
     private String topicName;
 
-    public EntityService() {}
+    public EntityService() {
+    }
 
     public EntityService(String bootstrapServers, String topicName) {
         this.topicName = topicName;
@@ -54,21 +56,30 @@ public class EntityService {
     }
 
     public void sendIt(List<String> entities) {
+        System.out.printf("The list of records is %d in size%n", entities.size());
         entities.forEach(entity -> {
             ProducerRecord<String, String> record =
                     new ProducerRecord<>(topicName, UUID.randomUUID().toString(), entity);
             Future<RecordMetadata> future = producer.send(record);
 
+            try {
+                future.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
         });
         producer.flush();
     }
 
-    public List<String>getEntities(String filePath) {
-        List<String>entities = new ArrayList<>();
+    public List<String> getEntities(String filePath) {
+        List<String> entities = new ArrayList<>();
 
         try (Reader inputReader =
-             new InputStreamReader(Objects.requireNonNull( EntityService.class.getClassLoader().getResourceAsStream(filePath)));
-            BufferedReader bufferedReader = new BufferedReader(inputReader)
+                     new InputStreamReader(Objects.requireNonNull(EntityService.class.getClassLoader().getResourceAsStream(filePath)));
+             BufferedReader bufferedReader = new BufferedReader(inputReader)
         ) {
 
             String xml;
