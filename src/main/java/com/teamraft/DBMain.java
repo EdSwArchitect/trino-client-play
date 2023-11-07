@@ -18,7 +18,7 @@ public class DBMain {
 
             System.out.println("The bikes:");
             bikes.forEach(bike -> System.out.format("%s\n-----\n", bike));
-            
+
         } catch (SQLException | ClassNotFoundException e ) {
 
             System.err.format("Exception caught from search: %s\n", e.getMessage());
