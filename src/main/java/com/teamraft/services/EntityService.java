@@ -1,6 +1,11 @@
 package com.teamraft.services;
 
 import com.teamraft.model.Entity;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.xml.sax.SAXException;
 
 import javax.xml.xpath.XPathExpressionException;
@@ -22,10 +27,41 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Properties;
+import java.util.UUID;
+import java.util.concurrent.Future;
 
 public class EntityService {
     static final String DB_URL = "jdbc:trino://my-trino:8080/entity/comms-broker?user=admin";
     private XmlHelper xmlHelper = new XmlHelper();
+    private KafkaProducer<String, String> producer;
+    private String topicName;
+
+    public EntityService() {}
+
+    public EntityService(String bootstrapServers, String topicName) {
+        this.topicName = topicName;
+        Properties props = new Properties();
+
+        System.err.printf("Bootstrap servers: '%s'\n", bootstrapServers);
+
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, "EdwinTesting");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        props.put(ProducerConfig.ACKS_CONFIG, "1");
+        producer = new KafkaProducer<>(props);
+    }
+
+    public void sendIt(List<String> entities) {
+        entities.forEach(entity -> {
+            ProducerRecord<String, String> record =
+                    new ProducerRecord<>(topicName, UUID.randomUUID().toString(), entity);
+            Future<RecordMetadata> future = producer.send(record);
+
+        });
+        producer.flush();
+    }
 
     public List<String>getEntities(String filePath) {
         List<String>entities = new ArrayList<>();

@@ -7,17 +7,23 @@ import java.util.List;
 
 public class DBLoadMain {
     public static void main(String... args) throws JsonProcessingException {
-        EntityService entityService = new EntityService();
+        // String bootstrapServers, String topicName
 
-        System.out.println("Loading the Trino database");
+        System.out.format("Using kafka bootstrap-server: '%s' for topic: '%s'\n", args[0], args[1]);
+
+        EntityService entityService = new EntityService(args[0], args[1]);
+
+        System.out.println("Loading the Trino kafka");
 
         List<String> entities = entityService.getEntities("5000-entities.xml");
 
-        if (entityService.persist(entities)) {
+        entityService.sendIt(entities);
 
-            System.out.println("Stored XML in database as fielded stuff");
-        } else {
-            System.out.println("Error storing XML in teh database");
-        }
+        //        if (entityService.persist(entities)) {
+//
+//            System.out.println("Stored XML in database as fielded stuff");
+//        } else {
+//            System.out.println("Error storing XML in teh database");
+//        }
     }
 }

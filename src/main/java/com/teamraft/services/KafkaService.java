@@ -15,14 +15,14 @@ import java.util.concurrent.Future;
 
 public class KafkaService {
     private static ObjectMapper objectMapper = new ObjectMapper();
-    private KafkaProducer<String, String>producer;
+    private KafkaProducer<String, String> producer;
     private String topicName;
 
     public KafkaService(String bootstrapServers, String topicName) {
         this.topicName = topicName;
         Properties props = new Properties();
 
-	System.err.printf("Bootstrap servers: '%s'\n", bootstrapServers);
+        System.err.printf("Bootstrap servers: '%s'\n", bootstrapServers);
 
         props.put(ProducerConfig.CLIENT_ID_CONFIG, "EdwinTesting");
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -33,23 +33,18 @@ public class KafkaService {
         //props.put(ProducerConfig.BATCH_SIZE_CONFIG, 1024);
         producer = new KafkaProducer<>(props);
     }
+
     public void sendIt(List<CitiBike> bikes) {
         bikes.forEach(bike -> {
             try {
                 String json = objectMapper.writeValueAsString(bike);
-
-//		System.err.println(json);
-
-                ProducerRecord<String, String>record =
+                ProducerRecord<String, String> record =
                         new ProducerRecord<>(topicName, bike.getRideId(), json);
-                //producer.send(record);
-                Future<RecordMetadata>future = producer.send(record);
-//		System.out.printf("Future topic? %s%n", future.get().topic());
-		
+                Future<RecordMetadata> future = producer.send(record);
             } catch (JsonProcessingException e) {
-		    System.out.printf("The error raised is: %s\n", e.getMessage());
-		e.printStackTrace();
-            } 
+                System.out.printf("The error raised is: %s\n", e.getMessage());
+                e.printStackTrace();
+            }
         });
 
         producer.flush();
