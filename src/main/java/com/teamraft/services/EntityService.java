@@ -24,7 +24,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class EntityService {
-    static final String DB_URL = "jdbc:trino://my-trino:8080/kafka/citi?user=admin";
+    static final String DB_URL = "jdbc:trino://my-trino:8080/entity/comms-broker?user=admin";
     private XmlHelper xmlHelper = new XmlHelper();
 
     public List<String>getEntities(String filePath) {

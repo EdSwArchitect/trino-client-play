@@ -80,3 +80,78 @@ kafka:
           ]
         }
       }
+    entity.json: |-
+      {
+        "tableName": "entity",
+        "topicName": "entity",
+        "schemaName": "comms-broker",
+        "message": {
+          "dataFormat" : "json",
+          "fields": [
+            {
+              "name": "id",
+              "mapping": "id",
+              "type": "VARCHAR"
+            },
+            {
+              "name": "message",
+              "mapping": "message",
+              "type": "VARCHAR"
+            },
+            {
+              "name": "descriptive_label",
+              "mapping": "descriptiveLabel",
+              "type": "VARCHAR"
+            },
+            {
+              "name": "mode1",
+              "mapping": "mode1",
+              "type": "VARCHAR"
+            },
+            {
+              "name": "mode2",
+              "mapping": "mode2",
+              "type": "VARCHAR"
+            },
+            {
+              "name": "mode3",
+              "mapping": "mode3",
+              "type": "VARCHAR"
+            },
+            {
+              "name": "mode5",
+              "mapping": "mode5",
+              "type": "VARCHAR"
+            },
+            {
+              "name": "tail_number",
+              "mapping": "tailNumber",
+              "type": "VARCHAR"
+            },
+            {
+              "name": "call_sign",
+              "mapping": "callSign",
+              "type": "VARCHAR"
+            },
+            {
+              "name": "updated_at",
+              "type": "TIMESTAMP",
+              "dataFormat": "custom-date-time",
+              "formatHint": "yyyy-MM-dd HH:mm:ss",
+              "mapping": "updatedAt"
+            },
+            {
+              "name": "identity_timestamp",
+              "type": "TIMESTAMP",
+              "dataFormat": "custom-date-time",
+              "formatHint": "yyyy-MM-dd HH:mm:ss",
+              "mapping": "identityTimestamp"
+            },
+            {
+              "name": "track_number",
+              "mapping": "trackNumber",
+              "type": "VARCHAR"
+            }
+          ]
+        }
+      }
