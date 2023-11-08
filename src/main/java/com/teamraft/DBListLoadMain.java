@@ -10,7 +10,7 @@ import java.util.List;
 public class DBListLoadMain {
     public static void main(String... args) throws IOException, URISyntaxException {
         // String bootstrapServers, String topicName
-        File dir = new File("src/data");
+        File dir = new File(args[2]);
         final EntityService entityService = new EntityService(args[0], args[1]);
 
         for (File file : dir.listFiles()) {
