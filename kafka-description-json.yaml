@@ -137,14 +137,14 @@ kafka:
               "name": "updated_at",
               "type": "TIMESTAMP",
               "dataFormat": "custom-date-time",
-              "formatHint": "yyyy-MM-dd HH:mm:ss",
+              "formatHint": "yyyy-MM-dd'T'HH:mm:ss'Z'",
               "mapping": "updatedAt"
             },
             {
               "name": "identity_timestamp",
               "type": "TIMESTAMP",
               "dataFormat": "custom-date-time",
-              "formatHint": "yyyy-MM-dd HH:mm:ss",
+              "formatHint": "yyyy-MM-dd'T'HH:mm:ss'Z'",
               "mapping": "identityTimestamp"
             },
             {
