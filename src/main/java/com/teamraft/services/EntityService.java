@@ -59,15 +59,24 @@ public class EntityService {
         System.out.printf("The list of records is %d in size%n", entities.size());
 
         entities.forEach(entity -> {
-            ProducerRecord<String, String> record =
-                    new ProducerRecord<>(topicName, UUID.randomUUID().toString(), entity);
-            Future<RecordMetadata> future = producer.send(record);
 
             try {
+                Entity e = new Entity(entity, xmlHelper);
+
+                ProducerRecord<String, String> record =
+                        new ProducerRecord<>(topicName, UUID.randomUUID().toString(), e.toJson());
+                Future<RecordMetadata> future = producer.send(record);
+
                 future.get().hasOffset();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (XPathExpressionException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SAXException e) {
                 e.printStackTrace();
             }
 
@@ -260,8 +269,8 @@ public class EntityService {
             stmt.setString(5, entity.getMode2());
             stmt.setString(6, entity.getMode3());
             stmt.setString(7, entity.getMode5());
-            stmt.setString(8, entity.getTailnumber());
-            stmt.setString(9, entity.getCallsign());
+            stmt.setString(8, entity.getTailNumber());
+            stmt.setString(9, entity.getCallSign());
             stmt.setTimestamp(10, Timestamp.from(Instant.now()));
             stmt.setTimestamp(11, Timestamp.from(entity.getIdentityTimestamp()));
             stmt.setString(12, entity.getTrackNumber());

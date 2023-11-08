@@ -1,5 +1,7 @@
 package com.teamraft.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teamraft.services.XmlHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -10,6 +12,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 public class Entity {
+    private static ObjectMapper objectMapper = new ObjectMapper();
     String id;
     String message;
     String descriptiveLabel;
@@ -17,8 +20,8 @@ public class Entity {
     String mode2;
     String mode3;
     String mode5;
-    String tailnumber;
-    String callsign;
+    String tailNumber;
+    String callSign;
     Instant updatedAt;
     String trackNumber;
 
@@ -44,15 +47,15 @@ public class Entity {
         this.mode2 = xmlHelper.getValues(EntityXPathConfig.mode2, document);
         this.mode3 = xmlHelper.getValues(EntityXPathConfig.mode3, document);
         this.mode5 = xmlHelper.getValues(EntityXPathConfig.mode5, document);
-        this.tailnumber = xmlHelper.getValues(EntityXPathConfig.tailNumber, document);
-        this.callsign = xmlHelper.getValues(EntityXPathConfig.callSign, document);
+        this.tailNumber = xmlHelper.getValues(EntityXPathConfig.tailNumber, document);
+        this.callSign = xmlHelper.getValues(EntityXPathConfig.callSign, document);
         this.identityTimestamp = xmlHelper.getInstant(EntityXPathConfig.identityTimestamp, document);
         this.trackNumber = xmlHelper.getValues(EntityXPathConfig.trackNumber, document);
     }
 
 
     public Entity(String id, String message, String descriptiveLabel, String mode1, String mode2, String mode3,
-                  String mode5, String tailnumber, String callsign, Instant updatedAt, Instant identityTimestamp,
+                  String mode5, String tailNumber, String callSign, Instant updatedAt, Instant identityTimestamp,
                   String trackNumber) {
         this.id = id;
         this.message = message;
@@ -61,8 +64,8 @@ public class Entity {
         this.mode2 = mode2;
         this.mode3 = mode3;
         this.mode5 = mode5;
-        this.tailnumber = tailnumber;
-        this.callsign = callsign;
+        this.tailNumber = tailNumber;
+        this.callSign = callSign;
         this.updatedAt = updatedAt;
         this.identityTimestamp = identityTimestamp;
         this.trackNumber = trackNumber;
@@ -124,20 +127,20 @@ public class Entity {
         this.mode5 = mode5;
     }
 
-    public String getTailnumber() {
-        return tailnumber;
+    public String getTailNumber() {
+        return tailNumber;
     }
 
-    public void setTailnumber(String tailnumber) {
-        this.tailnumber = tailnumber;
+    public void setTailNumber(String tailNumber) {
+        this.tailNumber = tailNumber;
     }
 
-    public String getCallsign() {
-        return callsign;
+    public String getCallSign() {
+        return callSign;
     }
 
-    public void setCallsign(String callsign) {
-        this.callsign = callsign;
+    public void setCallSign(String callSign) {
+        this.callSign = callSign;
     }
 
     public Instant getUpdatedAt() {
@@ -162,5 +165,9 @@ public class Entity {
 
     public void setIdentityTimestamp(Instant identityTimestamp) {
         this.identityTimestamp = identityTimestamp;
+    }
+
+    public String toJson() throws JsonProcessingException {
+        return  objectMapper.writeValueAsString(this);
     }
 }
