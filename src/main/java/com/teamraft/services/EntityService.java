@@ -10,6 +10,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.xpath.XPathExpressionException;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -90,6 +91,28 @@ public class EntityService {
 
         try (Reader inputReader =
                      new InputStreamReader(Objects.requireNonNull(EntityService.class.getClassLoader().getResourceAsStream(filePath)));
+             BufferedReader bufferedReader = new BufferedReader(inputReader)
+        ) {
+
+            String xml;
+
+            while ((xml = bufferedReader.readLine()) != null) {
+                entities.add(xml);
+            }
+
+            return entities;
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Returning an empty array");
+            return new ArrayList<>();
+        }
+    }
+
+
+    public List<String> getDirEntities(String filePath) {
+        List<String> entities = new ArrayList<>();
+
+        try (Reader inputReader = new InputStreamReader(new FileInputStream(filePath));
              BufferedReader bufferedReader = new BufferedReader(inputReader)
         ) {
 
