@@ -37,12 +37,12 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.15.3</version>
         </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-<!--            <version>2.13.4</version>-->
-            <version>2.15.3</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.datatype</groupId>-->
+<!--            <artifactId>jackson-datatype-jsr310</artifactId>-->
+<!--&lt;!&ndash;            <version>2.13.4</version>&ndash;&gt;-->
+<!--            <version>2.15.3</version>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/io.trino/trino-jdbc -->
         <dependency>
             <groupId>io.trino</groupId>

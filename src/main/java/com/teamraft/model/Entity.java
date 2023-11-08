@@ -2,6 +2,8 @@ package com.teamraft.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.teamraft.services.XmlHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -168,6 +170,8 @@ public class Entity {
     }
 
     public String toJson() throws JsonProcessingException {
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.registerModule(new JavaTimeModule());
         return  objectMapper.writeValueAsString(this);
     }
 }
