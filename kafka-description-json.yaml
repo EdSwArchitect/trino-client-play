@@ -135,12 +135,12 @@ kafka:
             },
             {
               "name": "updated_at",
-              "type": "TIMESTAMP(0)",
+              "type": "VARCHAR",
               "mapping": "updatedAt"
             },
             {
               "name": "identity_timestamp",
-              "type": "TIMESTAMP(0)",
+              "type": "VARCHAR",
               "mapping": "identityTimestamp"
             },
             {

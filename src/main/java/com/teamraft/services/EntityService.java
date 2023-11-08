@@ -139,8 +139,8 @@ public class EntityService {
                     rs.getString("mode5"),
                     rs.getString("tail_number"),
                     rs.getString("call_sign"),
-                    rs.getTimestamp("updated_at").toInstant(),
-                    rs.getTimestamp("identity_timestamp").toInstant(),
+                    rs.getString("updated_at"),
+                    rs.getString("identity_timestamp"),
                     rs.getString("track_number")));
         }
         stmt.close();
@@ -182,8 +182,8 @@ public class EntityService {
                     rs.getString("mode5"),
                     rs.getString("tail_number"),
                     rs.getString("call_sign"),
-                    rs.getTimestamp("updated_at").toInstant(),
-                    rs.getTimestamp("identity_timestamp").toInstant(),
+                    rs.getString("updated_at"),
+                    rs.getString("identity_timestamp"),
                     rs.getString("track_number")));
         }
 
@@ -225,8 +225,8 @@ public class EntityService {
                     rs.getString("mode5"),
                     rs.getString("tail_number"),
                     rs.getString("call_sign"),
-                    rs.getTimestamp("updated_at").toInstant(),
-                    rs.getTimestamp("identity_timestamp").toInstant(),
+                    rs.getString("updated_at"),
+                    rs.getString("identity_timestamp"),
                     rs.getString("track_number")));
         }
         stmt.close();
@@ -271,8 +271,8 @@ public class EntityService {
             stmt.setString(7, entity.getMode5());
             stmt.setString(8, entity.getTailNumber());
             stmt.setString(9, entity.getCallSign());
-            stmt.setTimestamp(10, Timestamp.from(Instant.now()));
-            stmt.setTimestamp(11, Timestamp.from(entity.getIdentityTimestamp()));
+            stmt.setString(10, Timestamp.from(Instant.now()).toString());
+            stmt.setString(11, entity.getIdentityTimestamp());
             stmt.setString(12, entity.getTrackNumber());
 
             stmt.addBatch();

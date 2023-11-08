@@ -24,20 +24,20 @@ public class Entity {
     String mode5;
     String tailNumber;
     String callSign;
-    Instant updatedAt;
+    String updatedAt;
     String trackNumber;
 
     public Entity() {
     }
 
-    Instant identityTimestamp;
+    String identityTimestamp;
 
     public Entity(String id, String message, String descriptiveLabel) {
         this.id = id;
         this.message = message;
         this.descriptiveLabel = descriptiveLabel;
-        this.updatedAt = Instant.now();
-        this.identityTimestamp = Instant.now();
+        this.updatedAt = Instant.now().toString();
+        this.identityTimestamp = Instant.now().toString();
     }
 
     public Entity(String xml, XmlHelper xmlHelper) throws IOException, SAXException, XPathExpressionException {
@@ -51,13 +51,14 @@ public class Entity {
         this.mode5 = xmlHelper.getValues(EntityXPathConfig.mode5, document);
         this.tailNumber = xmlHelper.getValues(EntityXPathConfig.tailNumber, document);
         this.callSign = xmlHelper.getValues(EntityXPathConfig.callSign, document);
-        this.identityTimestamp = xmlHelper.getInstant(EntityXPathConfig.identityTimestamp, document);
+//        this.identityTimestamp = xmlHelper.getInstant(EntityXPathConfig.identityTimestamp, document);
+        this.identityTimestamp = xmlHelper.getValues(EntityXPathConfig.identityTimestamp, document).toString();
         this.trackNumber = xmlHelper.getValues(EntityXPathConfig.trackNumber, document);
     }
 
 
     public Entity(String id, String message, String descriptiveLabel, String mode1, String mode2, String mode3,
-                  String mode5, String tailNumber, String callSign, Instant updatedAt, Instant identityTimestamp,
+                  String mode5, String tailNumber, String callSign, String updatedAt, String identityTimestamp,
                   String trackNumber) {
         this.id = id;
         this.message = message;
@@ -145,11 +146,11 @@ public class Entity {
         this.callSign = callSign;
     }
 
-    public Instant getUpdatedAt() {
+    public String getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Instant updatedAt) {
+    public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -161,11 +162,11 @@ public class Entity {
         this.trackNumber = trackNumber;
     }
 
-    public Instant getIdentityTimestamp() {
+    public String getIdentityTimestamp() {
         return identityTimestamp;
     }
 
-    public void setIdentityTimestamp(Instant identityTimestamp) {
+    public void setIdentityTimestamp(String identityTimestamp) {
         this.identityTimestamp = identityTimestamp;
     }
 
