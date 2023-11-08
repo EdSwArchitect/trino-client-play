@@ -142,9 +142,9 @@ kafka:
             },
             {
               "name": "identity_timestamp",
-              "type": "TIMESTAMP WITH TIME ZONE",
+              "type": "TIMESTAMP(0)",
               "dataFormat": "custom-date-time",
-              "formatHint": "yyyy-MM-dd'T'HH:mm:ssz",
+              "formatHint": "yyyy-MM-dd'T'HH:mm:ss'Z'",
               "mapping": "identityTimestamp"
             },
             {
