@@ -11,7 +11,7 @@ public class DBListLoadMain {
         // String bootstrapServers, String topicName
         File dir = new File(args[2]);
         final EntityService entityService = new EntityService(args[0], args[1]);
-        final EntityLocationService entityLocationService = new EntityLocationService(args[0], "entityLocation");
+        final EntityLocationService entityLocationService = new EntityLocationService(args[0], "entity_location");
 
         for (File file : dir.listFiles()) {
             System.out.printf("Processing file %s%n", file.getAbsolutePath());
