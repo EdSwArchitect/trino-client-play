@@ -13,6 +13,13 @@ additionalCatalogs:
     kafka.hide-internal-columns=false
     kafka.nodes=my-cluster-kafka-bootstrap:9092
     kafka.table-description-dir=etc/schemas
+  entityLocation: |-
+    connector.name=kafka
+    kafka.table-names=entityLocation
+    kafka.default-schema=comms-broker
+    kafka.hide-internal-columns=false
+    kafka.nodes=my-cluster-kafka-bootstrap:9092
+    kafka.table-description-dir=etc/schemas
 additionalNodeProperties:
   - org.apache.kafka=INFO
 
