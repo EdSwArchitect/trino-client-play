@@ -161,10 +161,10 @@ kafka:
           ]
         }
       }
-    entityLocation.json: |-
+    entity_location.json: |-
       {
-        "tableName": "entityLocation",
-        "topicName": "entityLocation",
+        "tableName": "entity_location",
+        "topicName": "entity_location",
         "schemaName": "comms-broker",
         "message": {
           "dataFormat" : "json",

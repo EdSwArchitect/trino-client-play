@@ -51,11 +51,12 @@ public class Entity {
         this.mode5 = xmlHelper.getValues(EntityXPathConfig.mode5, document);
         this.tailNumber = xmlHelper.getValues(EntityXPathConfig.tailNumber, document);
         this.callSign = xmlHelper.getValues(EntityXPathConfig.callSign, document);
-
         String val = xmlHelper.getValues(EntityXPathConfig.identityTimestamp, document);
         this.identityTimestamp = Instant.parse(val).toEpochMilli();
         this.trackNumber = xmlHelper.getValues(EntityXPathConfig.trackNumber, document);
         this.updatedAt = System.currentTimeMillis();
+        this.latitude = Double.parseDouble(xmlHelper.getValues(EntityXPathConfig.latitude, document));
+        this.longitude = Double.parseDouble(xmlHelper.getValues(EntityXPathConfig.longitude, document));
     }
 
 
