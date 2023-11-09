@@ -21,6 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,7 +76,7 @@ public class EntityService {
                 e.printStackTrace();
             } catch (XPathExpressionException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
+            } catch (IOException | ParseException e) {
                 e.printStackTrace();
             } catch (SAXException e) {
                 e.printStackTrace();
@@ -162,8 +163,8 @@ public class EntityService {
                     rs.getString("mode5"),
                     rs.getString("tail_number"),
                     rs.getString("call_sign"),
-                    rs.getString("updated_at"),
-                    rs.getString("identity_timestamp"),
+                    rs.getLong("updated_at"),
+                    rs.getLong("identity_timestamp"),
                     rs.getString("track_number")));
         }
         stmt.close();
@@ -205,8 +206,8 @@ public class EntityService {
                     rs.getString("mode5"),
                     rs.getString("tail_number"),
                     rs.getString("call_sign"),
-                    rs.getString("updated_at"),
-                    rs.getString("identity_timestamp"),
+                    rs.getLong("updated_at"),
+                    rs.getLong("identity_timestamp"),
                     rs.getString("track_number")));
         }
 
@@ -248,8 +249,8 @@ public class EntityService {
                     rs.getString("mode5"),
                     rs.getString("tail_number"),
                     rs.getString("call_sign"),
-                    rs.getString("updated_at"),
-                    rs.getString("identity_timestamp"),
+                    rs.getLong("updated_at"),
+                    rs.getLong("identity_timestamp"),
                     rs.getString("track_number")));
         }
         stmt.close();
@@ -276,7 +277,7 @@ public class EntityService {
             try {
                 entity = new Entity(message, xmlHelper);
                 entityMap.put(entity.getId(), entity);
-            } catch (XPathExpressionException | IOException | SAXException e) {
+            } catch (XPathExpressionException | IOException | SAXException | ParseException e) {
                 System.err.println(e.getMessage());
             }
         });
@@ -295,7 +296,7 @@ public class EntityService {
             stmt.setString(8, entity.getTailNumber());
             stmt.setString(9, entity.getCallSign());
             stmt.setString(10, Timestamp.from(Instant.now()).toString());
-            stmt.setString(11, entity.getIdentityTimestamp());
+            stmt.setLong(11, entity.getIdentityTimestamp());
             stmt.setString(12, entity.getTrackNumber());
 
             stmt.addBatch();

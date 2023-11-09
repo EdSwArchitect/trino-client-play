@@ -1,0 +1,59 @@
+{
+  "schemaName": "entity",
+  "dimensionFieldSpecs": [
+    {
+      "name": "id",
+      "dataType": "STRING"
+    },
+    {
+      "name": "descriptiveLabel",
+      "dataType": "STRING"
+    },
+    {
+      "name": "mode1",
+      "dataType": "STRING"
+    },
+    {
+      "name": "mode2",
+      "dataType": "STRING"
+    },
+    {
+      "name": "mode3",
+      "dataType": "STRING"
+    },
+    {
+      "name": "mode5",
+      "dataType": "STRING"
+    },
+    {
+      "name": "tailNumber",
+      "dataType": "STRING"
+    },
+    {
+      "name": "callSign",
+      "dataType": "STRING"
+    },
+    {
+      "name": "trackNumber",
+      "dataType": "STRING"
+    }
+  ],
+  "metricFieldSpecs": [
+    {
+      "name": "updatedAt",
+      "dataType": "LONG"
+    }
+  ],
+  "dateTimeFieldSpecs": [
+    {
+      "name": "updatedAt",
+      "dataType": "TIMESTAMP",
+      "format": "yyyy-MM-dd'T'HH:mm:ss'T'"
+    },
+    {
+      "name": "identityTimestamp",
+      "dataType": "TIMESTAMP",
+      "format": "yyyy-MM-dd'T'HH:mm:ss'T'"
+    }
+  ]
+}

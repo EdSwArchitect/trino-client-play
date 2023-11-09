@@ -10,6 +10,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -24,23 +25,21 @@ public class Entity {
     String mode5;
     String tailNumber;
     String callSign;
-    String updatedAt;
+    long updatedAt;
     String trackNumber;
+    long identityTimestamp;
 
-    public Entity() {
-    }
-
-    String identityTimestamp;
+    public Entity() {}
 
     public Entity(String id, String message, String descriptiveLabel) {
         this.id = id;
         this.message = message;
         this.descriptiveLabel = descriptiveLabel;
-        this.updatedAt = Instant.now().toString();
-        this.identityTimestamp = Instant.now().toString();
+        this.updatedAt = System.currentTimeMillis();
+        this.identityTimestamp = System.currentTimeMillis();
     }
 
-    public Entity(String xml, XmlHelper xmlHelper) throws IOException, SAXException, XPathExpressionException {
+    public Entity(String xml, XmlHelper xmlHelper) throws IOException, SAXException, XPathExpressionException, ParseException {
         this.id = UUID.randomUUID().toString();
         this.message = xml;
         Document document = xmlHelper.convertToDocument(xml);
@@ -51,14 +50,16 @@ public class Entity {
         this.mode5 = xmlHelper.getValues(EntityXPathConfig.mode5, document);
         this.tailNumber = xmlHelper.getValues(EntityXPathConfig.tailNumber, document);
         this.callSign = xmlHelper.getValues(EntityXPathConfig.callSign, document);
-//        this.identityTimestamp = xmlHelper.getInstant(EntityXPathConfig.identityTimestamp, document);
-        this.identityTimestamp = xmlHelper.getValues(EntityXPathConfig.identityTimestamp, document).toString();
+
+        String val = xmlHelper.getValues(EntityXPathConfig.identityTimestamp, document);
+        this.identityTimestamp = Instant.parse(val).toEpochMilli();
         this.trackNumber = xmlHelper.getValues(EntityXPathConfig.trackNumber, document);
+        this.updatedAt = System.currentTimeMillis();
     }
 
 
     public Entity(String id, String message, String descriptiveLabel, String mode1, String mode2, String mode3,
-                  String mode5, String tailNumber, String callSign, String updatedAt, String identityTimestamp,
+                  String mode5, String tailNumber, String callSign, long updatedAt, long identityTimestamp,
                   String trackNumber) {
         this.id = id;
         this.message = message;
@@ -146,11 +147,11 @@ public class Entity {
         this.callSign = callSign;
     }
 
-    public String getUpdatedAt() {
+    public long getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(String updatedAt) {
+    public void setUpdatedAt(long updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -162,11 +163,11 @@ public class Entity {
         this.trackNumber = trackNumber;
     }
 
-    public String getIdentityTimestamp() {
+    public long getIdentityTimestamp() {
         return identityTimestamp;
     }
 
-    public void setIdentityTimestamp(String identityTimestamp) {
+    public void setIdentityTimestamp(long identityTimestamp) {
         this.identityTimestamp = identityTimestamp;
     }
 
