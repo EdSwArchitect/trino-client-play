@@ -9,17 +9,20 @@ additionalCatalogs:
   entity: |-
     connector.name=kafka
     kafka.table-names=entity
-    kafka.default-schema=comms-broker
+    kafka.default-schema=comms_broker
     kafka.hide-internal-columns=false
     kafka.nodes=my-cluster-kafka-bootstrap:9092
     kafka.table-description-dir=etc/schemas
   entity_location: |-
     connector.name=kafka
     kafka.table-names=entity_location
-    kafka.default-schema=comms-broker
+    kafka.default-schema=comms_broker
     kafka.hide-internal-columns=false
     kafka.nodes=my-cluster-kafka-bootstrap:9092
     kafka.table-description-dir=etc/schemas
+  pinot: |-
+    connector.name=pinot
+    pinot.controller-urls=pinot-controller:9000
 additionalNodeProperties:
   - org.apache.kafka=INFO
 

@@ -82,7 +82,7 @@ kafka:
       {
         "tableName": "entity",
         "topicName": "entity",
-        "schemaName": "comms-broker",
+        "schemaName": "comms_broker",
         "message": {
           "dataFormat" : "json",
           "fields": [
@@ -165,7 +165,7 @@ kafka:
       {
         "tableName": "entity_location",
         "topicName": "entity_location",
-        "schemaName": "comms-broker",
+        "schemaName": "comms_broker",
         "message": {
           "dataFormat" : "json",
           "fields": [
