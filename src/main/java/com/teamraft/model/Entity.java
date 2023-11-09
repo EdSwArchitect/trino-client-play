@@ -12,7 +12,6 @@ import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.Instant;
-import java.util.UUID;
 
 public class Entity {
     private static ObjectMapper objectMapper = new ObjectMapper();
@@ -28,6 +27,8 @@ public class Entity {
     long updatedAt;
     String trackNumber;
     long identityTimestamp;
+    double latitude;
+    double longitude;
 
     public Entity() {}
 
@@ -40,9 +41,9 @@ public class Entity {
     }
 
     public Entity(String xml, XmlHelper xmlHelper) throws IOException, SAXException, XPathExpressionException, ParseException {
-        this.id = UUID.randomUUID().toString();
-        this.message = xml;
         Document document = xmlHelper.convertToDocument(xml);
+        this.id = xmlHelper.getValues(EntityXPathConfig.id, document);
+        this.message = xml;
         this.descriptiveLabel = xmlHelper.getField(EntityXPathConfig.descriptiveLabelPath, document);
         this.mode1 = xmlHelper.getValues(EntityXPathConfig.mode1, document);
         this.mode2 = xmlHelper.getValues(EntityXPathConfig.mode2, document);
@@ -60,7 +61,7 @@ public class Entity {
 
     public Entity(String id, String message, String descriptiveLabel, String mode1, String mode2, String mode3,
                   String mode5, String tailNumber, String callSign, long updatedAt, long identityTimestamp,
-                  String trackNumber) {
+                  String trackNumber, double latitude, double longitude) {
         this.id = id;
         this.message = message;
         this.descriptiveLabel = descriptiveLabel;
@@ -73,6 +74,8 @@ public class Entity {
         this.updatedAt = updatedAt;
         this.identityTimestamp = identityTimestamp;
         this.trackNumber = trackNumber;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getId() {
@@ -169,6 +172,22 @@ public class Entity {
 
     public void setIdentityTimestamp(long identityTimestamp) {
         this.identityTimestamp = identityTimestamp;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public String toJson() throws JsonProcessingException {

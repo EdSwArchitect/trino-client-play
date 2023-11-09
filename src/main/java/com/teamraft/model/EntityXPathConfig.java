@@ -12,5 +12,6 @@ public class EntityXPathConfig {
     public static final String callSign = "/Entity/MessageData/Identity/SpecificVehicle/CallSign/Key/text()";
     public static final String identityTimestamp = "/Entity/MessageData/Identity/IdentityTimestamp/text()";
     public static final String trackNumber = "/Entity/MessageData/Identity/SpecificVehicle/DataLinkIdentifier/TrackIdentifier/TrackNumber/text()";
-
+    public static final String latitude = "/Entity/MessageData/Kinematics/Position/FixedPositionType/FixedPoint/Latitude/text()";
+    public static final String longitude = "/Entity/MessageData/Kinematics/Position/FixedPositionType/FixedPoint/Longitude/text()";
 }

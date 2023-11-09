@@ -140,7 +140,7 @@ public class EntityService {
 
         sql.append("SELECT ID, MESSAGE, DESCRIPTIVE_LABEL, MODE1, MODE2, MODE3, ");
         sql.append("MODE5, TAIL_NUMBER, CALL_SIGN, UPDATED_AT, IDENTITY_TIMESTAMP, ");
-        sql.append("TRACK_NUMBER FROM ENTITY WHERE ID = '").append(uuid).append("'");
+        sql.append("TRACK_NUMBER, LATITUDE, LONGITUDE FROM ENTITY WHERE ID = '").append(uuid).append("'");
 
         rs = stmt.executeQuery(sql.toString());
 
@@ -163,9 +163,13 @@ public class EntityService {
                     rs.getString("call_sign"),
                     rs.getLong("updated_at"),
                     rs.getLong("identity_timestamp"),
-                    rs.getString("track_number")));
+                    rs.getString("track_number"),
+                    rs.getDouble("latitude"),
+                    rs.getDouble("longitude")));
+
         }
         stmt.close();
+        conn.close();
 
         return entity;
     }
@@ -181,7 +185,7 @@ public class EntityService {
 
         sql.append("SELECT ID, MESSAGE, DESCRIPTIVE_LABEL, MODE1, MODE2, MODE3, ");
         sql.append("MODE5, TAIL_NUMBER, CALL_SIGN, UPDATED_AT, IDENTITY_TIMESTAMP, ");
-        sql.append("TRACK_NUMBER FROM ENTITY WHERE ");
+        sql.append("TRACK_NUMBER, LATITUDE, LONGITUDE FROM ENTITY WHERE ");
         sql.append("ID  IN (");
         sql.append(String.join("', '", uuids)).append("')");
 
@@ -206,10 +210,13 @@ public class EntityService {
                     rs.getString("call_sign"),
                     rs.getLong("updated_at"),
                     rs.getLong("identity_timestamp"),
-                    rs.getString("track_number")));
+                    rs.getString("track_number"),
+                    rs.getDouble("latitude"),
+                    rs.getDouble("longitude")));
         }
 
         stmt.close();
+        conn.close();
 
         return results;
     }
@@ -225,7 +232,7 @@ public class EntityService {
 
         sql.append("SELECT ID, MESSAGE, DESCRIPTIVE_LABEL, MODE1, MODE2, MODE3, ");
         sql.append("MODE5, TAIL_NUMBER, CALL_SIGN, UPDATED_AT, IDENTITY_TIMESTAMP, ");
-        sql.append("TRACK_NUMBER FROM ENTITY WHERE DESCRIPTIVE_LABEL = '");
+        sql.append("TRACK_NUMBER, LATITUDE, LONGITUDE FROM ENTITY WHERE DESCRIPTIVE_LABEL = '");
         sql.append(descriptiveLabel).append("'");
 
         rs = stmt.executeQuery(sql.toString());
@@ -249,9 +256,12 @@ public class EntityService {
                     rs.getString("call_sign"),
                     rs.getLong("updated_at"),
                     rs.getLong("identity_timestamp"),
-                    rs.getString("track_number")));
+                    rs.getString("track_number"),
+                    rs.getDouble("latitude"),
+                    rs.getDouble("longitude")));
         }
         stmt.close();
+        conn.close();
 
         return entity;
     }
@@ -279,8 +289,8 @@ public class EntityService {
                 System.err.println(e.getMessage());
             }
         });
-        StringBuilder sql = new StringBuilder("INSERT INTO entity (id,message, descriptive_label, mode1, mode2, mode3, mode5, tail_number, call_sign, updated_at, identity_timestamp, track_number) VALUES");
-        sql.append("(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        StringBuilder sql = new StringBuilder("INSERT INTO entity (id,message, descriptive_label, mode1, mode2, mode3, mode5, tail_number, call_sign, updated_at, identity_timestamp, track_number, latitude, longitude) VALUES");
+        sql.append("(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         PreparedStatement stmt = conn.prepareStatement(sql.toString());
 
         for (Entity entity : entityMap.values()) {
@@ -296,11 +306,15 @@ public class EntityService {
             stmt.setString(10, Timestamp.from(Instant.now()).toString());
             stmt.setLong(11, entity.getIdentityTimestamp());
             stmt.setString(12, entity.getTrackNumber());
-
+            stmt.setDouble(13, entity.getLatitude());
+            stmt.setDouble(14, entity.getLongitude());
             stmt.addBatch();
         }
 
         stmt.executeBatch();
+
+        stmt.close();
+        conn.close();
     }
 
 }
