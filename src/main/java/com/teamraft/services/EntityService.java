@@ -92,8 +92,7 @@ public class EntityService {
 
         try (Reader inputReader =
                      new InputStreamReader(Objects.requireNonNull(EntityService.class.getClassLoader().getResourceAsStream(filePath)));
-             BufferedReader bufferedReader = new BufferedReader(inputReader)
-        ) {
+             BufferedReader bufferedReader = new BufferedReader(inputReader)) {
 
             String xml;
 
@@ -114,8 +113,7 @@ public class EntityService {
         List<String> entities = new ArrayList<>();
 
         try (Reader inputReader = new InputStreamReader(new FileInputStream(filePath));
-             BufferedReader bufferedReader = new BufferedReader(inputReader)
-        ) {
+             BufferedReader bufferedReader = new BufferedReader(inputReader)) {
 
             String xml;
 

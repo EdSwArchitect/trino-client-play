@@ -21,15 +21,13 @@ kafka:
             {
               "name": "started_at",
               "type": "TIMESTAMP",
-              "dataFormat": "custom-date-time",
-              "formatHint": "yyyy-MM-dd HH:mm:ss",
+              "dataFormat": "milliseconds-since-epoch",
               "mapping": "startedAt"
             },
             {
               "name": "ended_at",
               "type": "TIMESTAMP",
-              "dataFormat": "custom-date-time",
-              "formatHint": "yyyy-MM-dd HH:mm:ss",
+              "dataFormat": "milliseconds-since-epoch",
               "mapping": "endedAt"
             },
             {
@@ -135,12 +133,14 @@ kafka:
             },
             {
               "name": "updated_at",
-              "type": "VARCHAR",
+              "type": "TIMESTAMP",
+              "dataFormat": "milliseconds-since-epoch",
               "mapping": "updatedAt"
             },
             {
               "name": "identity_timestamp",
-              "type": "VARCHAR",
+              "type": "TIMESTAMP",
+              "dataFormat": "milliseconds-since-epoch",
               "mapping": "identityTimestamp"
             },
             {

@@ -3,12 +3,10 @@ package com.teamraft;
 import com.teamraft.services.EntityService;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 
 public class DBListLoadMain {
-    public static void main(String... args) throws IOException, URISyntaxException {
+    public static void main(String... args) {
         // String bootstrapServers, String topicName
         File dir = new File(args[2]);
         final EntityService entityService = new EntityService(args[0], args[1]);
