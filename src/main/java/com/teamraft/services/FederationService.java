@@ -14,7 +14,8 @@ import java.util.List;
 
 public class FederationService {
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    static final String DB_URL = "jdbc:trino://my-trino:8080/entity_location/comms_broker?user=admin";
+//    static final String DB_URL = "jdbc:trino://my-trino:8080/entity_location/comms_broker?user=admin";
+    static final String DB_URL = "jdbc:trino://my-trino:8080/entity/comms_broker?user=admin";
     private XmlHelper xmlHelper = new XmlHelper();
     private KafkaProducer<String, String> producer;
     private String topicName;
@@ -40,10 +41,10 @@ public class FederationService {
          * order by e.id;
          */
 
-        sql.append("SELECT e.id, e.tail_number, e.identity_timestamp, e.call_sign, e.track_number, ");
+        sql.append("SELECT \"e.id, e.tail_number, e.identity_timestamp, e.call_sign, e.track_number, ");
         sql.append("geo.latitude, geo.location from");
         sql.append("entity.comms_broker.entity as e, pinot.default.entityLocation as geo ");
-        sql.append("where e.id = geo.id order by e.id");
+        sql.append("where e.id = geo.id order by e.id\"");
         sql.append(" limit 100");
         rs = stmt.executeQuery(sql.toString());
 
