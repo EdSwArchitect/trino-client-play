@@ -42,9 +42,9 @@ public class FederationService {
          */
 
         sql.append("SELECT \"e.id, e.tail_number, e.identity_timestamp, e.call_sign, e.track_number, ");
-        sql.append("geo.latitude, geo.location from");
+        sql.append("geo.latitude, geo.location\" from");
         sql.append("entity.comms_broker.entity as e, pinot.default.entityLocation as geo ");
-        sql.append("where e.id = geo.id order by e.id\"");
+        sql.append("where e.id = geo.id order by e.id");
         sql.append(" limit 100");
         rs = stmt.executeQuery(sql.toString());
 
