@@ -36,7 +36,7 @@ import java.util.concurrent.Future;
 
 public class EntityService {
 //    static final String DB_URL = "jdbc:trino://my-trino:8080/entity/comms_broker?user=admin";
-    static final String DB_URL = "jdbc:postgres://postgres-postgresql:5432/public?user=edwin&password=edwin";
+    static final String DB_URL = "jdbc:postgres://postgres-postgresql:5432/postgres?user=edwin&password=edwin";
     private XmlHelper xmlHelper = new XmlHelper();
     private KafkaProducer<String, String> producer;
     private String topicName;
@@ -280,6 +280,9 @@ public class EntityService {
 
     private void bulkInsert(List<String> entities) throws SQLException {
         Connection conn = DriverManager.getConnection(DB_URL);
+
+        // DB_HOST=postgres-postgresql DB_PORT=5432
+        DriverManager.getConnection("jdbc:postgresql://postgres-postgresql:5432/postgres", "edwin", "edwin");
         Map<String, Entity> entityMap = new HashMap<>();
 
         entities.forEach(message -> {
