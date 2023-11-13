@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-federation-java
+  namespace: ed-testing
+  labels:
+    app: ed-testing
+spec:
+  template:
+    spec:
+      containers:
+      - name: db-federation-java
+        image: edswarchitect/edbrown-trino-java:1.0.0-SNAPSHOT
+        command: ["./db-federation-entrypoint.sh"]
+        imagePullPolicy: Always
+      restartPolicy: Never

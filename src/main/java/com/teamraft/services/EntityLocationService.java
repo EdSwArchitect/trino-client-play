@@ -20,7 +20,7 @@ import java.util.concurrent.Future;
 
 public class EntityLocationService {
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    static final String DB_URL = "jdbc:trino://my-trino:8080/entityLocation/comms-broker?user=admin";
+    static final String DB_URL = "jdbc:trino://my-trino:8080/entity_location/comms_broker?user=admin";
     private XmlHelper xmlHelper = new XmlHelper();
     private KafkaProducer<String, String> producer;
     private String topicName;
