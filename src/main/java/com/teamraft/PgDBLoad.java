@@ -12,7 +12,7 @@ public class PgDBLoad {
 
         final EntityService entityService = new EntityService();
 
-        Class.forName("");
+        Class.forName("org.postgresql.Driver");
 
         for (File file : dir.listFiles()) {
             System.out.printf("Processing file %s%n", file.getAbsolutePath());
