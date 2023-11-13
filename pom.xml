@@ -46,9 +46,16 @@
         <dependency>
             <groupId>io.trino</groupId>
             <artifactId>trino-jdbc</artifactId>
-<!--            <version>432</version>-->
+            <!--            <version>432</version>-->
             <version>431</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.6.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -97,7 +104,7 @@
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire-plugin.version}</version>
-<!--                <version>3.2.2</version>-->
+                <!--                <version>3.2.2</version>-->
                 <dependencies>
                     <dependency>
                         <groupId>org.junit.jupiter</groupId>
@@ -105,14 +112,14 @@
                         <version>5.9.1</version>
                     </dependency>
                 </dependencies>
-<!--
-                <configuration>
-                    <systemPropertyVariables>
-                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                        <maven.home>${maven.home}</maven.home>
-                    </systemPropertyVariables>
-                </configuration>
--->
+                <!--
+                                <configuration>
+                                    <systemPropertyVariables>
+                                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                                        <maven.home>${maven.home}</maven.home>
+                                    </systemPropertyVariables>
+                                </configuration>
+                -->
             </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>

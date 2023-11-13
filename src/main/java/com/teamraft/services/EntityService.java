@@ -35,7 +35,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class EntityService {
-    static final String DB_URL = "jdbc:trino://my-trino:8080/entity/comms_broker?user=admin";
+//    static final String DB_URL = "jdbc:trino://my-trino:8080/entity/comms_broker?user=admin";
+    static final String DB_URL = "jdbc:postgres://postgres-postgresql:5432/public?user=admin&password=4VhCiU9hdI";
     private XmlHelper xmlHelper = new XmlHelper();
     private KafkaProducer<String, String> producer;
     private String topicName;
@@ -267,6 +268,7 @@ public class EntityService {
     }
 
     public boolean persist(List<String> messages) {
+
         try {
             bulkInsert(messages);
         } catch (Exception e) {

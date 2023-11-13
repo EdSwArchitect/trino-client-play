@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-pg-load-java
+  namespace: ed-testing
+  labels:
+    app: ed-testing
+spec:
+  template:
+    spec:
+      containers:
+      - name: db-pg-load-java
+        image: edswarchitect/edbrown-trino-java:1.0.0-SNAPSHOT
+        command: ["./db-pg-load-entrypoint.sh"]
+        imagePullPolicy: Always
+      restartPolicy: Never

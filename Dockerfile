@@ -5,6 +5,7 @@ COPY jdbc-entrypoint.sh /jdbc-entrypoint.sh
 COPY jdbc-store-entrypoint.sh /jdbc-store-entrypoint.sh
 COPY db-load-list-entrypoint.sh /db-load-list-entrypoint.sh
 COPY db-federation-entrypoint.sh /db-federation-entrypoint.sh
+COPY db-pg-load-entrypoint.sh /db-pg-load-entrypoint.sh
 COPY target/trino.java-1.0-SNAPSHOT-jar-with-dependencies.jar /trino-java.jar
 
 RUN mkdir /data
