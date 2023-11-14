@@ -290,11 +290,11 @@ public class EntityService {
 
         Map<String, Entity> entityMap = new HashMap<>();
 
+        List<Entity>listOfEntities = new ArrayList<>();
+
         entities.forEach(message -> {
-            Entity entity;
             try {
-                entity = new Entity(message, xmlHelper);
-                entityMap.put(entity.getId(), entity);
+                listOfEntities.add(new Entity(message, xmlHelper));
             } catch (XPathExpressionException | IOException | SAXException | ParseException e) {
                 System.err.println(e.getMessage());
             }
@@ -302,13 +302,8 @@ public class EntityService {
         StringBuilder sql = new StringBuilder("INSERT INTO entity (id,message, descriptive_label, mode1, mode2, mode3, mode5, tail_number, call_sign, updated_at, identity_timestamp, track_number, latitude, longitude) VALUES");
         sql.append("(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         PreparedStatement stmt = conn.prepareStatement(sql.toString());
-
-        int max = entityMap.size();
-        Entity entity;
-        for (int i = 0; i < max; i++) {
-
-            entity = entityMap.get(i);
-//        for (Entity entity : entityMap.values()) {
+        int i = 0;
+        for (Entity entity : listOfEntities) {
             stmt.setString(1, entity.getId());
             stmt.setString(2, entity.getMessage());
             stmt.setString(3, entity.getDescriptiveLabel());
@@ -325,7 +320,7 @@ public class EntityService {
             stmt.setDouble(14, entity.getLongitude());
             stmt.addBatch();
 
-            if (i % 100 == 0) {
+            if (i++ % 100 == 0) {
                 stmt.executeBatch();
                 conn.commit();
             }
