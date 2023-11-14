@@ -310,8 +310,8 @@ public class EntityService {
             stmt.setString(7, entity.getMode5());
             stmt.setString(8, entity.getTailNumber());
             stmt.setString(9, entity.getCallSign());
-            stmt.setString(10, Timestamp.from(Instant.now()).toString());
-            stmt.setLong(11, entity.getIdentityTimestamp());
+            stmt.setTimestamp(10, Timestamp.from(Instant.now()));
+            stmt.setTimestamp(11, Timestamp.from(Instant.ofEpochMilli(entity.getIdentityTimestamp())));
             stmt.setString(12, entity.getTrackNumber());
             stmt.setDouble(13, entity.getLatitude());
             stmt.setDouble(14, entity.getLongitude());
