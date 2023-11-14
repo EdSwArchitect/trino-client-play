@@ -3,6 +3,7 @@ package com.teamraft.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teamraft.csv.CitiBike;
+import com.teamraft.model.Person;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -16,6 +17,7 @@ import java.util.concurrent.Future;
 public class KafkaService {
     private static ObjectMapper objectMapper = new ObjectMapper();
     private KafkaProducer<String, String> producer;
+    private KafkaProducer<Long, String> personProducer;
     private String topicName;
 
     public KafkaService(String bootstrapServers, String topicName) {
@@ -49,5 +51,19 @@ public class KafkaService {
 
         producer.flush();
 
+    }
+
+    public void sendPerson(List<Person> people) {
+        people.forEach(person -> {
+            String json = null;
+            try {
+                json = objectMapper.writeValueAsString(person);
+                ProducerRecord<Long, String> record =
+                        new ProducerRecord<>("update_test", person.getTheId(), json);
+                Future<RecordMetadata> future = personProducer.send(record);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

@@ -320,7 +320,7 @@ public class EntityService {
             stmt.setDouble(14, entity.getLongitude());
             stmt.addBatch();
 
-            if (i++ % 100 == 0) {
+            if (++i % 100 == 0) {
                 stmt.executeBatch();
                 conn.commit();
             }

@@ -204,3 +204,40 @@ kafka:
           ]
         }
       }
+    update_test.json: |-
+      {
+        "tableName": "update_test",
+        "topicName": "update_test",
+        "schemaName": "comms_broker",
+        "message": {
+          "dataFormat" : "json",
+          "fields": [
+            {
+              "name": "id",
+              "mapping": "theId",
+              "type": "LONG"
+            },
+            {
+              "name": "updated_at",
+              "type": "TIMESTAMP",
+              "dataFormat": "milliseconds-since-epoch",
+              "mapping": "updatedAt"
+            },
+            {
+              "name": "first_name",
+              "mapping": "firstName",
+              "type": "VARCHAR",
+            },
+            {
+              "name": "last_name",
+              "mapping": "lastName",
+              "type": "VARCHAR"
+            },
+            {
+              "name": "age",
+              "mapping": "age",
+              "type": "LONG"
+            }
+          ]
+        }
+      }
