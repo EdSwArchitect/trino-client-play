@@ -284,7 +284,7 @@ public class EntityService {
 //        Connection conn = DriverManager.getConnection(DB_URL);
 
         // DB_HOST=postgres-postgresql DB_PORT=5432
-        Connection conn = DriverManager.getConnection("jdbc:postgresql://postgres-postgresql:5432/postgres", "edwin", "edwin");
+        Connection conn = DriverManager.getConnection("jdbc:postgresql://postgres-postgresql:5432/postgres", "postgres", "4VhCiU9hdI");
         Map<String, Entity> entityMap = new HashMap<>();
 
         entities.forEach(message -> {
