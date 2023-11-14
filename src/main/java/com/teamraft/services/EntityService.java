@@ -286,7 +286,6 @@ public class EntityService {
         // DB_HOST=postgres-postgresql DB_PORT=5432
         Connection conn = DriverManager.getConnection("jdbc:postgresql://postgres-postgresql:5432/postgres", "postgres", "4VhCiU9hdI");
 
-        conn.setAutoCommit(false);
         Map<String, Entity> entityMap = new HashMap<>();
 
         entities.forEach(message -> {
@@ -302,7 +301,12 @@ public class EntityService {
         sql.append("(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         PreparedStatement stmt = conn.prepareStatement(sql.toString());
 
-        for (Entity entity : entityMap.values()) {
+        int max = entityMap.size();
+        Entity entity;
+        for (int i = 0; i < max; i++) {
+
+            entity = entityMap.get(i);
+//        for (Entity entity : entityMap.values()) {
             stmt.setString(1, entity.getId());
             stmt.setString(2, entity.getMessage());
             stmt.setString(3, entity.getDescriptiveLabel());
@@ -318,11 +322,15 @@ public class EntityService {
             stmt.setDouble(13, entity.getLatitude());
             stmt.setDouble(14, entity.getLongitude());
             stmt.addBatch();
+
+            if (i % 100 == 0) {
+                stmt.executeBatch();
+
+                stmt.clearParameters();
+            }
         }
 
         stmt.executeBatch();
-
-        conn.commit();
 
         stmt.close();
         conn.close();
