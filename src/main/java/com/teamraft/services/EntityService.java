@@ -278,11 +278,13 @@ public class EntityService {
         return true;
     }
 
-    private void bulkInsert(List<String> entities) throws SQLException {
-        Connection conn = DriverManager.getConnection(DB_URL);
+    private void bulkInsert(List<String> entities) throws SQLException, ClassNotFoundException {
+        Class.forName("org.postgresql.Driver");
+
+//        Connection conn = DriverManager.getConnection(DB_URL);
 
         // DB_HOST=postgres-postgresql DB_PORT=5432
-        DriverManager.getConnection("jdbc:postgresql://postgres-postgresql:5432/postgres", "edwin", "edwin");
+        Connection conn = DriverManager.getConnection("jdbc:postgresql://postgres-postgresql:5432/postgres", "edwin", "edwin");
         Map<String, Entity> entityMap = new HashMap<>();
 
         entities.forEach(message -> {
