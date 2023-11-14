@@ -213,9 +213,9 @@ kafka:
           "dataFormat" : "json",
           "fields": [
             {
-              "name": "id",
+              "name": "theId",
               "mapping": "theId",
-              "type": "LONG"
+              "type": "BIGINT"
             },
             {
               "name": "updated_at",
@@ -226,7 +226,7 @@ kafka:
             {
               "name": "first_name",
               "mapping": "firstName",
-              "type": "VARCHAR",
+              "type": "VARCHAR"
             },
             {
               "name": "last_name",
@@ -236,7 +236,7 @@ kafka:
             {
               "name": "age",
               "mapping": "age",
-              "type": "LONG"
+              "type": "BIGINT"
             }
           ]
         }

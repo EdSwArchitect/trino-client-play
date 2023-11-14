@@ -8,6 +8,7 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.List;
@@ -34,6 +35,9 @@ public class KafkaService {
         props.put(ProducerConfig.ACKS_CONFIG, "1");
         //props.put(ProducerConfig.BATCH_SIZE_CONFIG, 1024);
         producer = new KafkaProducer<>(props);
+
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
+        personProducer = new KafkaProducer<>(props);
     }
 
     public void sendIt(List<CitiBike> bikes) {
