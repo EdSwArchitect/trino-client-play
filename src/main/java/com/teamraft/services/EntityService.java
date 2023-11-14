@@ -285,6 +285,8 @@ public class EntityService {
 
         // DB_HOST=postgres-postgresql DB_PORT=5432
         Connection conn = DriverManager.getConnection("jdbc:postgresql://postgres-postgresql:5432/postgres", "postgres", "4VhCiU9hdI");
+
+        conn.setAutoCommit(false);
         Map<String, Entity> entityMap = new HashMap<>();
 
         entities.forEach(message -> {
@@ -319,6 +321,8 @@ public class EntityService {
         }
 
         stmt.executeBatch();
+
+        conn.commit();
 
         stmt.close();
         conn.close();
