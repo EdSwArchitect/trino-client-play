@@ -20,6 +20,13 @@ additionalCatalogs:
     kafka.hide-internal-columns=false
     kafka.nodes=my-cluster-kafka-bootstrap:9092
     kafka.table-description-dir=etc/schemas
+  update_test: |-
+    connector.name=kafka
+    kafka.table-names=update_test
+    kafka.default-schema=comms_broker
+    kafka.hide-internal-columns=false
+    kafka.nodes=my-cluster-kafka-bootstrap:9092
+    kafka.table-description-dir=etc/schemas
   pinot: |-
     connector.name=pinot
     pinot.controller-urls=pinot-controller:9000
@@ -28,13 +35,6 @@ additionalCatalogs:
     connection-url=jdbc:postgresql://postgres-postgresql:5432/postgres
     connection-user=postgres
     connection-password=4VhCiU9hdI
-  update_test: |-
-    connector.name=kafka
-    kafka.table-names=update_test
-    kafka.default-schema=comms_broker
-    kafka.hide-internal-columns=false
-    kafka.nodes=my-cluster-kafka-bootstrap:9092
-    kafka.table-description-dir=etc/schemas
 additionalNodeProperties:
   - org.apache.kafka=INFO
 
